@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@tailwind/animation@latest/dist/tailwind-animation.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-rose-400 via-rose-500 to-rose-600 min-h-screen flex items-center justify-center p-4">
+    <div class="container mx-auto max-w-md w-full text-center space-y-8">
+        <h1 class="text-4xl md:text-6xl font-bold text-white  animate-fade-in">
+            Happy Valentine's Day, Love! ❤️
+        </h1>
+        
+        <div class="text-white text-lg md:text-xl font-light leading-relaxed">
+            <p class="text-center">
+                💖
+            </p>
+        </div>
+
+        <!-- Love Countdown Timer -->
+        <div class="mt-8 text-center">
+            <h2 class="text-2xl font-bold text-white mb-4">Next Valentine's Day Countdown! 💘</h2>
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <div id="countdown" class="text-rose-600 text-xl">
+                    Loading...
+                </div>
+            </div>
+        </div>
+
+        <!-- Adding a Custom Love Message -->
+        <button class="surprise-btn bg-white text-rose-600 px-8 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:bg-rose-600 hover:text-white hover:scale-105 hover:shadow-xl">
+            Click for a Surprise 💝
+        </button>
+
+        <!-- Love Question -->
+        <div class="love-question mt-12">
+            <p class="text-2xl font-semibold mb-4">
+                Do you love me? 😊
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button class="yes-btn bg-white text-rose-600 px-6 py-2 rounded-full shadow-lg transform transition-all duration-300 hover:bg-rose-600 hover:text-white hover:scale-105 hover:shadow-xl">
+                    Yes ❤️
+                </button>
+                <button class="no-btn bg-white text-rose-600 px-6 py-2 rounded-full shadow-lg transform transition-all duration-300 hover:bg-rose-600 hover:text-white hover:scale-105 hover:shadow-xl">
+                    No 😢
+                </button>
+            </div>
+        </div>
+
+        <!-- Theme Switcher -->
+        <!-- <div class="theme-switcher mt-8">
+            <button onclick="changeTheme('pink')" class="bg-rose-500 px-4 py-2 rounded m-2">Pink Theme</button>
+            <button onclick="changeTheme('red')" class="bg-red-500 px-4 py-2 rounded m-2">Red Theme</button>
+            <button onclick="changeTheme('purple')" class="bg-purple-500 px-4 py-2 rounded m-2">Purple Theme</button>
+        </div> -->
+    </div>
+
+    <!-- Floating Hearts Container -->
+    <div class="hearts fixed inset-0 w-full h-full pointer-events-none"></div>
+
+    <!-- Floating Emoji -->
+    <div id="floatingEmoji" class="fixed opacity-0 animate-fade-out"></div>
+
+    <!-- Surprise Message Modal -->
+    <div id="surpriseMessage" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg text-center animate-fade-in">
+            <h2 class="text-2xl font-bold text-rose-600 mb-4">You Are My Everything! 💕</h2>
+            <p class="text-lg text-gray-800 mb-6">Happy Valentine's Day, my love! You mean the world to me.</p>
+            <button onclick="closeSurpriseMessage()" class="bg-rose-500 text-white px-6 py-2 rounded-full hover:bg-rose-600 transition-colors">
+                Close ❤️
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Love Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const valentinesDay = new Date(now.getFullYear(), 1, 14); // February 14th
+
+            if (now > valentinesDay) {
+                valentinesDay.setFullYear(now.getFullYear() + 1);
+            }
+
+            const difference = valentinesDay - now;
+
+            const days = Math.floor(difference / 1000 / 60 / 60 / 24);
+            const hours = Math.floor(difference / 1000 / 60 / 60) % 24;
+            const minutes = Math.floor(difference / 1000 / 60) % 60;
+            const seconds = Math.floor(difference / 1000) % 60;
+
+            document.getElementById('countdown').innerHTML = `
+                ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds
+            `;
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Surprise Message
+        document.querySelector('.surprise-btn').addEventListener('click', function() {
+            document.getElementById('surpriseMessage').classList.remove('hidden');
+        });
+
+        function closeSurpriseMessage() {
+            document.getElementById('surpriseMessage').classList.add('hidden');
+        }
+
+        // Love Question buttons
+        document.querySelector('.yes-btn').addEventListener('click', function() {
+            alert("Yay! I love you too! 💖");
+        });
+
+        document.querySelector('.no-btn').addEventListener('mousemove', function() {
+            const button = document.querySelector('.no-btn');
+            const container = document.querySelector('.container');
+            button.style.position = "absolute";
+            button.style.left = Math.random() * (container.offsetWidth - 100) + 'px';
+            button.style.top = Math.random() * (container.offsetHeight - 100) + 'px';
+        });
+
+        // Theme Switcher
+        function changeTheme(color) {
+            if (color === 'pink') {
+                document.documentElement.style.setProperty('--bg-color', '#ff758c');
+            } else if (color === 'red') {
+                document.documentElement.style.setProperty('--bg-color', '#ff4444');
+            } else if (color === 'purple') {
+                document.documentElement.style.setProperty('--bg-color', '#9c27b0');
+            }
+        }
+
+        // Floating Hearts
+        // function addFloatingHeart() {
+        //     const heart = document.createElement('div');
+        //     heart.className = 'heart';
+        //     heart.innerHTML = '❤️';
+        //     heart.style.left = Math.random() * window.innerWidth + 'px';
+        //     heart.style.top = Math.random() * window.innerHeight + 'px';
+        //     document.body.appendChild(heart);
+
+        //     setTimeout(() => heart.remove(), 3000);
+        // }
+
+        // Add floating hearts periodically
+        setInterval(addFloatingHeart, 1000);
+
+        // Floating Emoji
+        const emojis = ['💖', '💕', '💞', '💝', '💗', '💘'];
+        let floatingEmoji = document.getElementById('floatingEmoji');
+
+        function showRandomEmoji() {
+            floatingEmoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            floatingEmoji.style.left = Math.random() * window.innerWidth + 'px';
+            floatingEmoji.style.top = Math.random() * window.innerHeight + 'px';
+            floatingEmoji.classList.remove('opacity-0');
+            floatingEmoji.classList.add('animate-fade-out');
+            
+            setTimeout(() => {
+                floatingEmoji.classList.remove('animate-fade-out');
+                floatingEmoji.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        // Show random emoji every 3 seconds
+        setInterval(showRandomEmoji, 3000);
+    </script>
+</body>
+</html>
